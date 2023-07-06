@@ -73,7 +73,7 @@ describe('Issue create', () => {
     });
   });
 
-  it('Test 1 Should create a Bug and validate it successfully', () => {
+  it('Test 1 - Should create a Bug and validate it successfully', () => {
     //System finds modal for creating issue and does next steps inside of it
     cy.get('[data-testid="modal:issue-create"]').within(() => {
       
@@ -124,8 +124,8 @@ describe('Issue create', () => {
   
 
 
-  describe('Test 2 Create a Task using faker plugin', () => {
-  it('Asserts that the task with the random data is created and visible on the board', () => {
+ 
+  it('Test 2 - Asserts that the task with the random data is created and visible on the board', () => {
     cy.get('[data-testid="modal:issue-create"]').within(() => {
 
 // Checking that Task option is selected 
@@ -176,4 +176,4 @@ describe('Issue create', () => {
   });
   
 });
-});
+
