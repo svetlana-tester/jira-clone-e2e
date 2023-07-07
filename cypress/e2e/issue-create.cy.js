@@ -167,8 +167,6 @@ describe('Issue create', () => {
           .first()
           .find('p')
           .contains(fakerTitle);
-      //Assert that correct avatar and type icon are visible
-      //cy.get('[data-testid="avatar:Baby Yoda"]').should('be.visible');
       cy.get('[data-testid="icon:task"]').should('be.visible');     
 
 
