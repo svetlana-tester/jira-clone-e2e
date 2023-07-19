@@ -1,14 +1,15 @@
 /**
  * This is an example file and approach for POM in Cypress
  */
+import { fa } from "faker/lib/locales";
 import IssueModal from "../../pages/IssueModal";
 
 describe('Issue delete', () => {
   beforeEach(() => {
     cy.visit('/');
     cy.url().should('eq', `${Cypress.env('baseUrl')}project/board`).then((url) => {
-    //open issue detail modal with title from line 16  
-    cy.contains(issueTitle).click();
+      //open issue detail modal with title from line 16  
+      cy.contains(issueTitle).click();
     });
   });
 
@@ -17,9 +18,12 @@ describe('Issue delete', () => {
 
   it('Should delete issue successfully', () => {
     // steps to delete issue
-IssueModal.clickDeleteButton();
-IssueModal.confirmDeletion();
-IssueModal.ensureIssueIsNotVisibleOnBoard(issueTitle);
+    IssueModal.clickDeleteButton();
+    IssueModal.confirmDeletion();
+    IssueModal.validateIssueVisibilityState(issueTitle, false);
+    //IssueModal.ensureIssueIsNotVisibleOnBoard(issueTitle);
+    //IssueModal.checkIssueVisibilityOnBoard(issueTitle,false)
+    //IssueModal.checkIssueOnBoard(issueTitle, 'not.exist');
 
   });
 
@@ -27,7 +31,22 @@ IssueModal.ensureIssueIsNotVisibleOnBoard(issueTitle);
     // steps to start deletion proces but cancel it
     IssueModal.clickDeleteButton();
     IssueModal.cancelDeletion();
-    IssueModal. closeDetailModal();
-    IssueModal.ensureIssueIsVisibleOnBoard(issueTitle);
+    IssueModal.closeDetailModal();
+    IssueModal.validateIssueVisibilityState(issueTitle, true);
+    
+    
+    //IssueModal.ensureIssueIsVisibleOnBoard(issueTitle);
+    //IssueModal.checkIssueVisibilityOnBoard(issueTitle,true);
+    //IssueModal.checkIssueOnBoard(issueTitle, 'be.visible');
+
+
+
+
+
+    
+
+
+
+
   });
 });

@@ -69,24 +69,54 @@ class IssueModal {
         });
     }
 
-    ensureIssueIsVisibleOnBoard(issueTitle){
+    ensureIssueIsVisibleOnBoard(issueTitle) {
         cy.get(this.issueDetailModal).should('not.exist');
         cy.reload();
         cy.contains(issueTitle).should('be.visible');
     }
 
-    ensureIssueIsNotVisibleOnBoard(issueTitle){
+    checkIssueVisibilityOnBoard(issueTitle, isVisible) {
+        cy.get(this.issueDetailModal).should('not.exist');
+        cy.reload();
+        //One option
+        // let visibilityCheck;
+        // isVisible ? visibilityCheck = 'be.visible' : visibilityCheck = 'not.exist';
+
+        // cy.contains(issueTitle).should(visibilityCheck);
+        //Other option
+        if(isVisible)
+            cy.contains(issueTitle).should('be.visible');
+        else
+            cy.contains(issueTitle).should('not.exist');
+    }
+
+    validateIssueVisibilityState(issueTitle, isVisible = true) { // Valeria
+        cy.get(this.issueDetailModal).should('not.exist');
+        cy.reload();
+        if (isVisible)
+            cy.contains(issueTitle).should('be.visible')
+        else
+            cy.contains(issueTitle).should('not.exist');
+    }
+
+    checkIssueOnBoard(issueTitleName, check) {
+        cy.get(this.issueDetailModal).should('not.exist');
+        cy.reload();
+        cy.contains(issueTitleName).should(check);
+    }
+
+    ensureIssueIsNotVisibleOnBoard(issueTitle) {
         cy.get(this.issueDetailModal).should('not.exist');
         cy.reload();
         cy.contains(issueTitle).should('not.exist');
     }
 
-    clickDeleteButton(){
+    clickDeleteButton() {
         cy.get(this.deleteButton).click();
         cy.get(this.confirmationPopup).should('be.visible');
     }
 
-    confirmDeletion(){
+    confirmDeletion() {
         cy.get(this.confirmationPopup).within(() => {
             cy.contains(this.deleteButtonName).click();
         });
@@ -94,7 +124,7 @@ class IssueModal {
         cy.get(this.backlogList).should('be.visible');
     }
 
-    cancelDeletion(){
+    cancelDeletion() {
         cy.get(this.confirmationPopup).within(() => {
             cy.contains(this.cancelDeletionButtonName).click();
         });
@@ -102,10 +132,20 @@ class IssueModal {
         cy.get(this.issueDetailModal).should('be.visible');
     }
 
-    closeDetailModal(){
+    closeDetailModal() {
         cy.get(this.issueDetailModal).get(this.closeDetailModalButton).first().click();
         cy.get(this.issueDetailModal).should('not.exist');
     }
+
+    ensureIssueIsVisibleOnBoard(issueTitle) {
+    cy.get(this.issueDetailModal).should('not.exist');
+    cy.reload();
+    cy.contains(issueTitle).should('be.visible'); }
+
+    
+    
+
+
 }
 
 export default new IssueModal();

@@ -2,6 +2,7 @@
 
 describe('Issue deletion suite', () => {
   let confirmationModal;
+  let firtsIssueTitle;
 
   beforeEach(() => {
     cy.visit('/');
@@ -11,21 +12,21 @@ describe('Issue deletion suite', () => {
         cy.visit(url + '/board');
         cy.get('[data-testid="board-list:backlog"]')
           .should('be.visible')
-          .and('have.length', '1').within(() => {
-            cy.get('[data-testid="list-issue"]')
-              .should('have.length', '4')
-              // open the first issue
-              .first()
-              .click();
+        cy.get('[data-testid="list-issue"]')
+          .first()
+          .click()
+          .then(($title) => {
+            firtsIssueTitle = $title.text()
           })
-          // issue detail modal is visible
+
+        // issue detail modal is visible
         cy.get('[data-testid="modal:issue-details"]').should('be.visible');
       });
-      // click 'delete' button
-      cy.get('[data-testid="icon:trash"]')
+    // click 'delete' button
+    cy.get('[data-testid="icon:trash"]')
       .click();
-      confirmationModal = cy.get('[data-testid="modal:confirm"]');
-      confirmationModal.should('be.visible')
+    confirmationModal = cy.get('[data-testid="modal:confirm"]');
+    confirmationModal.should('be.visible')
       .and('contain', 'Are you sure you want to delete this issue?');
   });
 
@@ -46,10 +47,12 @@ describe('Issue deletion suite', () => {
     cy.reload();
     cy.get('[data-testid="board-list:backlog"]')
       .should('be.visible')
-      .and('have.length', '1')
       .within(() => {
-        cy.get('[data-testid="list-issue"]').should('have.length', '3')
+        cy.get('[data-testid="list-issue"]')
+          .should('not.contain', firtsIssueTitle);
+
       })
+
 
   })
 
@@ -57,24 +60,23 @@ describe('Issue deletion suite', () => {
   it('Test 2: cancels issue deletion', () => {
     confirmationModal.within(() => {
       // cancel the deletion
-      cy.contains('button','Cancel').click();
+      cy.contains('button', 'Cancel').click();
     });
-  
+
     // confirmation pop-up not visible
     cy.get('[data-testid="modal:confirm"]').should('not.exist');
-  
+
     cy.get('[data-testid="icon:close"]').first().click();
     cy.get('[data-testid="modal:issue-details"]').should('not.exist');
     cy.reload();
 
-  
+
     // issue is still displayed on the board
     cy.get('[data-testid="board-list:backlog"]')
       .should('be.visible')
-      .and('have.length', '1')
       .within(() => {
-        cy.get('[data-testid="list-issue"]').should('have.length', '4');
+        cy.get('[data-testid="list-issue"]') .should('contain', firtsIssueTitle);
       })
   })
-  
+
 })
