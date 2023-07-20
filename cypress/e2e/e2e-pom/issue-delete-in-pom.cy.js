@@ -33,20 +33,11 @@ describe('Issue delete', () => {
     IssueModal.cancelDeletion();
     IssueModal.closeDetailModal();
     IssueModal.validateIssueVisibilityState(issueTitle, true);
-    
-    
+
+
     //IssueModal.ensureIssueIsVisibleOnBoard(issueTitle);
     //IssueModal.checkIssueVisibilityOnBoard(issueTitle,true);
     //IssueModal.checkIssueOnBoard(issueTitle, 'be.visible');
-
-
-
-
-
-    
-
-
-
 
   });
 });
