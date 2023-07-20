@@ -75,7 +75,7 @@ describe('Issue deletion suite', () => {
     cy.get('[data-testid="board-list:backlog"]')
       .should('be.visible')
       .within(() => {
-        cy.get('[data-testid="list-issue"]') .should('contain', firtsIssueTitle);
+        cy.get('[data-testid="list-issue"]').should('contain', firtsIssueTitle);
       })
   })
 
