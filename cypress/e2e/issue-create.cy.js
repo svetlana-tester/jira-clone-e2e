@@ -16,9 +16,7 @@ describe('Issue create', () => {
   it('Should create an issue and validate it successfully', () => {
     //System finds modal for creating issue and does next steps inside of it
     cy.get('[data-testid="modal:issue-create"]').within(() => {
-      //open issue type dropdown and choose Story
-      cy.get('[data-testid="select:type"]').click();
-      cy.get('[data-testid="select-option:Story"]').trigger('click');
+      // checking task optio 
 
       //Type value to description input field
       cy.get('.ql-editor').type('TEST_DESCRIPTION');
