@@ -154,7 +154,7 @@ describe('Issue create', () => {
       });
   });
 
-  it.only('Verify app removes unnecessary spaces on the board view', () => {
+  it('Verify app removes unnecessary spaces on the board view', () => {
     // define issue title as a variable with multiple spaces between words
     const issueTitle = '   Short summary   ';
     // trim extra spaces

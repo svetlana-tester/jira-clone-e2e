@@ -77,7 +77,6 @@ describe('Issue details editing', () => {
         priorityOptionsArray.push(optionText);
         cy.log(`Added value: ${optionText}, Array length: ${priorityOptionsArray.length}`);
       });
-
       // Assert that the created array has the same length as the expected number of elements
       cy.wrap(priorityOptionsArray).should('have.length', expectedLength);
     });
