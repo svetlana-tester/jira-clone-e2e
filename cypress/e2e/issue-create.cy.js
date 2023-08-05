@@ -16,7 +16,7 @@ describe('Issue create', () => {
   it('Should create an issue and validate it successfully', () => {
     //System finds modal for creating issue and does next steps inside of it
     cy.get('[data-testid="modal:issue-create"]').within(() => {
-      // checking task optio 
+      // checking task optio
 
       //Type value to description input field
       cy.get('.ql-editor').type('TEST_DESCRIPTION');
@@ -152,5 +152,22 @@ describe('Issue create', () => {
         cy.get('[data-testid="list-issue"]').should('have.length', '5').first().find('p').contains(fakerTitle);
         cy.get('[data-testid="icon:task"]').should('be.visible');
       });
+  });
+
+  it.only('Verify app removes unnecessary spaces on the board view', () => {
+    // define issue title as a variable with multiple spaces between words
+    const issueTitle = '   Short summary   ';
+    // trim extra spaces
+    const trimmedTitle = issueTitle.trim();
+    //create issue with title 'short summary'
+    cy.get('[data-testid="modal:issue-create"]').within(() => {
+      cy.get('.ql-editor').type('TEST_DESCRIPTION');
+      cy.get('input[name="title"]').type(issueTitle);
+      cy.get('[data-testid="select:userIds"]').click();
+      cy.get('[data-testid="select-option:Lord Gaben"]').click();
+      cy.get('button[type="submit"]').click();
+    });
+    cy.wait(3000);
+    cy.get('[data-testid="board-list:backlog"]').first().should('contain', trimmedTitle)
   });
 });
